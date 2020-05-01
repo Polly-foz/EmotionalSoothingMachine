@@ -1,9 +1,11 @@
 const video = document.getElementById('video');
 
+
+
 Promise.all([
     //检测面部
     faceapi.nets.tinyFaceDetector.loadFromUri('./models'),
-    faceapi.nets.faceLandmark68Net.loadFromUri('./models'),
+    // faceapi.nets.faceLandmark68Net.loadFromUri('./models'),
     //识别表情
     faceapi.nets.faceExpressionNet.loadFromUri('./models')
 ]).then(startVideo);
@@ -22,6 +24,10 @@ function startVideo() {
     );
 }
 
+const images = {
+    'neutral':'./images/comfort3.jpeg'
+}
+
 video.addEventListener('play', () => {
     const canvas = faceapi.createCanvasFromMedia(video)
     const videoContainer = document.getElementById('videoContainer')
@@ -31,13 +37,13 @@ video.addEventListener('play', () => {
         height: video.height
     }
     faceapi.matchDimensions(canvas,displaySize)
-    console.log('loaded')
+    // console.log('loaded')
     setInterval(
         async () => {
             const detections = await faceapi.detectAllFaces(
                 video,
                 new faceapi.TinyFaceDetectorOptions()
-            ).withFaceLandmarks().withFaceExpressions();
+            ).withFaceExpressions();//.withFaceLandmarks()
 
             const resizedDetections = faceapi.resizeResults(detections,displaySize)
             canvas.getContext('2d').clearRect(0,0,canvas.width,canvas.height)
@@ -48,7 +54,10 @@ video.addEventListener('play', () => {
                 expressions = resizedDetections[0].expressions
                 expression = getTopExpression(expressions)
                 document.getElementById('text').innerText = expression
-
+                // console.log('expression',expression)
+                // console.log('image',images[expression])
+                document.getElementById('image').setAttribute('src',images[expression])
+                // showImage(expression)
             }catch(err){
                 // console.log('No face detected\n' + err)
             }
@@ -74,4 +83,10 @@ function objToStrMap(obj) {
         strMap.set(k, obj[k]);
     }
     return strMap;
+}
+
+function showImage(expression){
+    if(expression === 'neutral'){
+
+    }
 }

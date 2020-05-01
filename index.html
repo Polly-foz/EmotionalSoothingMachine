@@ -15,6 +15,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            min-width: 800px;
         }
         #videoContainer{
             display: flex;
@@ -24,11 +25,17 @@
         canvas{
             position:absolute;
         }
-        #text{
-            border: 1px solid blue;
+        #content{
+            /*border: 1px solid blue;*/
             width: 350px;
             height: 500px;
             padding: 2em;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        #image{
+            width: 350px;
         }
     </style>
 </head>
@@ -36,8 +43,13 @@
     <div id="videoContainer">
         <video id="video" width="720" height="560" autoplay muted></video>
     </div>
-    <div id="text">
-        hello
+    <div id="content">
+        <div id="text">
+            loading...
+        </div>
+        <div id="imageWrapper">
+            <img id='image' src="" alt="">
+        </div>
     </div>
 </body>
 </html>
