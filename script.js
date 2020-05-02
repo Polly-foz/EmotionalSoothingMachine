@@ -27,9 +27,6 @@ function startVideo() {
     );
 }
 
-const images = {
-    'neutral':'./images/comfort3.jpeg'
-}
 
 video.addEventListener('play', () => {
     const canvas = faceapi.createCanvasFromMedia(video)
@@ -59,6 +56,7 @@ video.addEventListener('play', () => {
                 faceapi.draw.drawFaceExpressions(canvas,resizedResult)
 
                 const { age, gender, genderProbability,expressions } = resizedResult
+                const genderIndex = gender==='female'?0:1;
                 new faceapi.draw.DrawTextField(
                     [
                         // `${faceapi.utils.round(interpolatedAge, 0)} years`,
@@ -70,10 +68,14 @@ video.addEventListener('play', () => {
                 try{
                     // expressions = resizedResult[0].expressions
                     expression = getTopExpression(expressions)
-                    document.getElementById('text').innerText = gender + '\t' + expression
+                    document.getElementById('text').innerText = texts[expression]
                     // console.log('expression',expression)
                     // console.log('image',images[expression])
-                    document.getElementById('image').setAttribute('src',images[expression])
+                    // console.log('genderIndex',genderIndex)
+                    // console.log('expression',expression)
+                    // console.log('images[expression]',images[expression])
+                    // console.log(images[expression][genderIndex])
+                    document.getElementById('image').setAttribute('src',images[expression][genderIndex])
                     // showImage(expression)
                 }catch(err){
                     // console.log('No face detected\n' + err)
@@ -91,7 +93,7 @@ function getTopExpression(expressions){
     const arrayObj=Array.from(expressionsMap);
     //按可能性从大到小排序
     arrayObj.sort(function(a,b){return b[1]-a[1]})
-    console.log(arrayObj)
+    // console.log(arrayObj)
     return arrayObj[0][0]
 }
 
