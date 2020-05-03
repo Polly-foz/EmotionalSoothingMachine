@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="css/spinner.css" rel="stylesheet" type="text/css"/>
+    <script src="lib/jquery-3.5.0.min.js"></script>
+    <script defer src="lib/face-api.min.js"></script>
+    <script defer src="scripts/constants.js"></script>
+    <script defer src="scripts/photo.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100vw;
+            height: 100vh;
+
+        }
+        #globalHeader{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #loading {
+            padding: 1em;
+        }
+
+        #globalMain {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-width: 800px;
+        }
+
+        #imgUploadContainer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1em;
+        }
+
+        canvas {
+            position: absolute;
+        }
+
+        /*#content {*/
+        /*    !*border: 1px solid blue;*!*/
+        /*    width: 350px;*/
+        /*    height: 500px;*/
+        /*    padding: 2em;*/
+        /*    display: flex;*/
+        /*    flex-direction: column;*/
+        /*    justify-content: space-between;*/
+        /*}*/
+
+        #imageContainer {
+            display: flex;
+            justify-content: center;
+            border:1px solid blue;
+        }
+
+        #inputImg {
+            /*width: 350px;*/
+            border: 1px solid yellow;
+        }
+
+        #content{
+            border: 1px solid red;
+        }
+
+    </style>
+</head>
+<body>
+<div id="globalHeader">
+    <h1 id="title">
+        Emotional Comfort Machine
+    </h1>
+    <div id="nav">
+        <a href="index.html">webcam</a> | <span>photo</span>
+    </div>
+    <div id="loading">
+        loading
+        <div class="spinner">
+            <div class="bounce1"></div>
+            <div class="bounce2"></div>
+            <div class="bounce3"></div>
+        </div>
+    </div>
+    <div id="imgUploadContainer" style="display: none">
+        <input id="queryImgUploadInput" type="file" onchange="loadImageFromUpload(this)"
+               accept=".jpg, .jpeg, .png">
+    </div>
+</div>
+
+<div id="globalMain">
+    <div class="imageContainer" id="imageContainer">
+        <img id="inputImg" src=""/>
+        <canvas id="overlay"/>
+    </div>
+    <div id="content">
+        <div id="text"></div>
+        <div id="imageWrapper">
+            <img id='image' src="" alt="">
+        </div>
+    </div>
+
+</div>
+
+
+</body>
+</html>

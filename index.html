@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link href="spinner.css" rel="stylesheet" type="text/css" />
-    <script defer src="face-api.min.js"></script>
-    <script defer src="constants.js"></script>
-    <script defer src="script.js"></script>
+    <link href="css/spinner.css" rel="stylesheet" type="text/css" />
+    <script defer src="lib/face-api.min.js"></script>
+    <script defer src="scripts/constants.js"></script>
+    <script defer src="scripts/script.js"></script>
     <style>
         body{
             margin:0;
@@ -42,7 +42,7 @@
             flex-direction: column;
             justify-content: space-between;
         }
-        #image{
+        #inputImage{
             width: 350px;
         }
     </style>
@@ -51,6 +51,9 @@
     <h1 id="title">
         Emotional Comfort Machine
     </h1>
+    <div id="nav">
+        <span>webcam</span> | <a href="photo.html">photo</a>
+    </div>
     <div id="globalMain">
         <div id="videoContainer">
             <video id="video" width="720" height="560" autoplay muted></video>

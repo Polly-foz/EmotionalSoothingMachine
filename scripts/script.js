@@ -1,7 +1,5 @@
 const video = document.getElementById('video');
 
-
-
 Promise.all([
     //检测面部
     faceapi.nets.tinyFaceDetector.loadFromUri('./models'),
@@ -75,7 +73,7 @@ video.addEventListener('play', () => {
                     // console.log('expression',expression)
                     // console.log('images[expression]',images[expression])
                     // console.log(images[expression][genderIndex])
-                    document.getElementById('image').setAttribute('src',images[expression][genderIndex])
+                    document.getElementById('inputImage').setAttribute('src',images[expression][genderIndex])
                     // showImage(expression)
                 }catch(err){
                     // console.log('No face detected\n' + err)
