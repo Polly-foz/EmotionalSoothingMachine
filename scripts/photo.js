@@ -68,5 +68,6 @@ async function detect(){
         }
     }else{
         $('#text').text('No face detected!\n')
+        $('#image').attr('src','')
     }
 }
