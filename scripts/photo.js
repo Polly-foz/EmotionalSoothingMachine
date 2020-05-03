@@ -1,18 +1,15 @@
 function loadImageFromUpload(){
-    const preview = document.querySelector('#inputImg');
-    const file    = document.querySelector('input[type=file]').files[0];
-    const reader  = new FileReader();
-
-    reader.onloadend = function () {
-        preview.src = reader.result;
-        console.log('src',preview.src)
-    }
-
-    if (file) {
-        reader.readAsDataURL(file);
+    $('#loading2').css('display','block');
+    var file = document.getElementById('queryImgUploadInput');
+    var ua = navigator.userAgent.toLowerCase();
+    var url = '';
+    if(/msie/.test(ua)) {
+        url = file.value;
     } else {
-        preview.src = "";
+        url = window.URL.createObjectURL(file.files[0]);
     }
+    $('#loading2').css('display','none');
+    document.getElementById('inputImg').src = url;
 
     detect()
 }
@@ -29,15 +26,16 @@ Promise.all([
 ]).then(start)
 
 function start(){
-    $('#loading').remove()
+    $('#loading1').remove()
     $('#imgUploadContainer').css('display','block')
     $('#globalMain').css('display','block')
 }
 
 async function detect(){
-    console.log('detect:')
+    $('#loading3').css('display','block');
+    // console.log('detect:')
     const input = document.getElementById('inputImg')
-    console.log('input',input)
+    // console.log('input',input)
     const result = await faceapi.detectSingleFace(
         input,
         new faceapi.TinyFaceDetectorOptions()
@@ -45,18 +43,30 @@ async function detect(){
     // resize the overlay canvas to the input dimensions
     const canvas = document.getElementById('overlay')
     faceapi.matchDimensions(canvas, input)
-    console.log('result',result)
+    // console.log('result',result)
+    $('#loading3').css('display','none');
     if(result){
         const resizedResult = faceapi.resizeResults(result,input)
         faceapi.draw.drawDetections(canvas,resizedResult)
         faceapi.draw.drawFaceExpressions(canvas,resizedResult)
-        // const { age, gender, genderProbability,expressions } = resizedResult
-        // const genderIndex = gender==='female'?0:1;
-        // new faceapi.draw.DrawTextField(
-        //     [
-        //         `${gender} (${faceapi.utils.round(genderProbability)})`
-        //     ],
-        //     result.detection.box.topRight
-        // ).draw(canvas)
+        const { age, gender, genderProbability,expressions } = resizedResult
+        const genderIndex = gender==='female'?0:1;
+        new faceapi.draw.DrawTextField(
+            [
+                // `${faceapi.utils.round(interpolatedAge, 0)} years`,
+                `${gender} (${faceapi.utils.round(genderProbability)})`
+            ],
+            result.detection.box.topRight
+        ).draw(canvas)
+
+        try{
+            expression = getTopExpression(expressions)
+            document.getElementById('text').innerText = texts[expression]
+            document.getElementById('image').setAttribute('src',images[expression][genderIndex])
+        }catch(err){
+            // console.log('No face detected\n' + err)
+        }
+    }else{
+        $('#text').text('No face detected!\n')
     }
 }
