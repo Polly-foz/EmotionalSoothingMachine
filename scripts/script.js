@@ -64,17 +64,9 @@ video.addEventListener('play', () => {
                 ).draw(canvas)
 
                 try{
-                    // expressions = resizedResult[0].expressions
                     expression = getTopExpression(expressions)
                     document.getElementById('text').innerText = texts[expression]
-                    // console.log('expression',expression)
-                    // console.log('image',images[expression])
-                    // console.log('genderIndex',genderIndex)
-                    // console.log('expression',expression)
-                    // console.log('images[expression]',images[expression])
-                    // console.log(images[expression][genderIndex])
-                    document.getElementById('inputImage').setAttribute('src',images[expression][genderIndex])
-                    // showImage(expression)
+                    document.getElementById('image').setAttribute('src',images[expression][genderIndex])
                 }catch(err){
                     // console.log('No face detected\n' + err)
                 }
@@ -84,27 +76,4 @@ video.addEventListener('play', () => {
     );
 });
 
-function getTopExpression(expressions){
-    expressionsMap = objToStrMap(expressions)
 
-    // console.log(expressionsMap)
-    const arrayObj=Array.from(expressionsMap);
-    //按可能性从大到小排序
-    arrayObj.sort(function(a,b){return b[1]-a[1]})
-    // console.log(arrayObj)
-    return arrayObj[0][0]
-}
-
-function objToStrMap(obj) {
-    let strMap = new Map();
-    for (let k of Object.keys(obj)) {
-        strMap.set(k, obj[k]);
-    }
-    return strMap;
-}
-
-function showImage(expression){
-    if(expression === 'neutral'){
-
-    }
-}

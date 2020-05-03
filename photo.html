@@ -8,6 +8,7 @@
     <script src="lib/jquery-3.5.0.min.js"></script>
     <script defer src="lib/face-api.min.js"></script>
     <script defer src="scripts/constants.js"></script>
+    <script defer src="scripts/commons.js"></script>
     <script defer src="scripts/photo.js"></script>
     <style>
         body {
@@ -24,8 +25,9 @@
             align-items: center;
         }
 
-        #loading {
+        .loading {
             padding: 1em;
+            /*border: 1px solid yellow;*/
         }
 
         #globalMain {
@@ -46,29 +48,30 @@
             position: absolute;
         }
 
-        /*#content {*/
-        /*    !*border: 1px solid blue;*!*/
-        /*    width: 350px;*/
-        /*    height: 500px;*/
-        /*    padding: 2em;*/
-        /*    display: flex;*/
-        /*    flex-direction: column;*/
-        /*    justify-content: space-between;*/
-        /*}*/
-
         #imageContainer {
             display: flex;
             justify-content: center;
-            border:1px solid blue;
+            /*border:1px solid blue;*/
         }
 
         #inputImg {
             /*width: 350px;*/
-            border: 1px solid yellow;
+            /*border: 1px solid yellow;*/
         }
 
         #content{
-            border: 1px solid red;
+            /*border: 1px solid red;*/
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2em;
+        }
+
+        #content #text{
+            width: 45vw;
+            padding: 1em;
+        }
+        #content #image{
+            width: 45vw;
         }
 
     </style>
@@ -81,7 +84,7 @@
     <div id="nav">
         <a href="index.html">webcam</a> | <span>photo</span>
     </div>
-    <div id="loading">
+    <div class="loading" id="loading1">
         loading
         <div class="spinner">
             <div class="bounce1"></div>
@@ -97,10 +100,26 @@
 
 <div id="globalMain">
     <div class="imageContainer" id="imageContainer">
+        <div class="loading" id="loading2" style="display: none">
+            loading
+            <div class="spinner">
+                <div class="bounce1"></div>
+                <div class="bounce2"></div>
+                <div class="bounce3"></div>
+            </div>
+        </div>
         <img id="inputImg" src=""/>
         <canvas id="overlay"/>
     </div>
     <div id="content">
+        <div class="loading" id="loading3" style="display: none">
+            loading
+            <div class="spinner">
+                <div class="bounce1"></div>
+                <div class="bounce2"></div>
+                <div class="bounce3"></div>
+            </div>
+        </div>
         <div id="text"></div>
         <div id="imageWrapper">
             <img id='image' src="" alt="">
